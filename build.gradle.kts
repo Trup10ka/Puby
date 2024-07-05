@@ -13,6 +13,10 @@ dependencies {
     /* Kord Library */
     implementation(libs.kord.core)
 
+    /* Config Library */
+    implementation(libs.hoplite.core)
+    implementation(libs.hoplite.hocon)
+
     testImplementation(kotlin("test"))
 }
 

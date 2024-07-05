@@ -1,9 +1,12 @@
 [versions]
 kotlin = "2.0.0"
 kord = "0.14.0"
+hoplite = "2.7.5"
 
 [libraries]
 kord-core = { module = "dev.kord:kord-core", version.ref = "kord" }
+hoplite-core = { module = "com.sksamuel.hoplite:hoplite-core", version.ref = "hoplite" }
+hoplite-hocon = { module = "com.sksamuel.hoplite:hoplite-hocon", version.ref = "hoplite" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
