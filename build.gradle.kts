@@ -10,6 +10,9 @@ repositories {
 }
 
 dependencies {
+    /* Kord Library */
+    implementation(libs.kord.core)
+
     testImplementation(kotlin("test"))
 }
 
