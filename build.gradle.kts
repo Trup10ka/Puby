@@ -17,6 +17,9 @@ dependencies {
     implementation(libs.hoplite.core)
     implementation(libs.hoplite.hocon)
 
+    /* Utilities */
+    implementation(libs.kotlin.logging.jvm)
+
     testImplementation(kotlin("test"))
 }
 
