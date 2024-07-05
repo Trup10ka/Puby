@@ -1,6 +1,9 @@
 package me.trup10ka.puby
 
-fun main()
+suspend fun main()
 {
-    println("Hello World!")
+    val puby = Puby()
+
+    puby.init()
+    puby.start()
 }
