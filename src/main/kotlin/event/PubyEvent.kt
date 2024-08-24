@@ -14,3 +14,22 @@ class PubyEvent(
     val members: MutableList<PubyEventMember> = mutableListOf(),
     var receipt: Receipt?
 )
+{
+    fun toFancyString(): String
+    {
+        val description = if (description.isNotBlank()) "Description: $description\n" else ""
+        val place = "Place: ${ if (place.isNotBlank()) "*$place*\n" else "*Not provided*" }"
+        val date = "Date: ${ if (date != null) "Date: *$date*\n" else "*Not provided*\n" }"
+        val time = "Time: ${ if (time != null) "Time: *$time*\n" else "*Not provided*\n" }"
+        val receipt = "Receipt: ${ if (receipt != null) "Receipt: *Yes*" else "Receipt: *No*" }"
+
+        return """
+            |**$name**
+            | $description
+            | $place
+            | $date
+            | $time
+            | $receipt
+        """.trimMargin()
+    }
+}
