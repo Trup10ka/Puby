@@ -1,8 +1,12 @@
 package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
+import me.trup10ka.puby.event.PubyEventManager
 
-class PubyCommandManager(private val kordClient: Kord)
+class PubyCommandManager(
+    private val kordClient: Kord,
+    private val pubyEventManager: PubyEventManager
+)
 {
     private val commands = listOf(
         CreateEventCommand,
@@ -20,6 +24,6 @@ class PubyCommandManager(private val kordClient: Kord)
 
     suspend fun registerListeners()
     {
-        commands.forEach { it.registerListener(kordClient) }
+        commands.forEach { it.registerListener(kordClient, pubyEventManager) }
     }
 }
