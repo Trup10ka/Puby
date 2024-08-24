@@ -23,4 +23,17 @@ class Puby
     {
         kordClient.login()
     }
+
+    private suspend fun initKordClient()
+    {
+        config = configProvider.loadConfig()
+
+        kordClient = Kord(config.token)
+    }
+
+    private suspend fun initChatCommands()
+    {
+        pubyCommandManager.initCommands()
+        pubyCommandManager.registerListeners()
+    }
 }
