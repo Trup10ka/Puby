@@ -9,7 +9,7 @@ object CreateEventCommand : PubyCommand
         TODO("Not yet implemented")
     }
 
-    override suspend fun registerListener(kordClient: Kord)
+    override suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
     {
         TODO("Not yet implemented")
     }
