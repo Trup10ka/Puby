@@ -1,11 +1,16 @@
 package me.trup10ka.puby.event
 
-import me.trup10ka.puby.event.member.PubyEventMember
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import me.trup10ka.puby.receipt.Receipt
 
 class PubyEvent(
     val id: Int,
-    val name: String,
-    val description: String = "No description provided",
-    val place: String = "No place provided",
-    val members: MutableList<PubyEventMember> = mutableListOf()
+    var name: String,
+    var description: String,
+    var place: String,
+    var date: LocalDate?,
+    var time: LocalTime?,
+    val members: MutableList<PubyEventMember> = mutableListOf(),
+    var receipt: Receipt?
 )
