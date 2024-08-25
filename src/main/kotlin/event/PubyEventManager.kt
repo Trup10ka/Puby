@@ -11,7 +11,7 @@ class PubyEventManager
 
     fun createEvent(pubyEventDTO: PubyEventDTO): Int
     {
-        if (pubyEvents.size >= MAX_NUMBER_OF_EVENTS) return FAIL_MAX_EVENTS_REACHED.code
+        if (pubyEvents.size + 1 > MAX_NUMBER_OF_EVENTS) return FAIL_MAX_EVENTS_REACHED.code
 
         val pubyEvent = PubyEvent(
             id = generateId(),
@@ -29,6 +29,10 @@ class PubyEventManager
     }
 
     fun findEventById(id: Int) = pubyEvents.find { it.id == id }
+
+    fun findEventByName(eventName: String) = pubyEvents.find { it.name == eventName }
+
+    fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
 
     private fun generateId(): Int
     {
