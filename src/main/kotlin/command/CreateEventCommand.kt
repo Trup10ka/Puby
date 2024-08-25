@@ -48,7 +48,7 @@ object CreateEventCommand : PubyCommand
 
             if (eventId < PubyEventManager.LOWER_BOND_OF_ID || eventId > PubyEventManager.UPPER_BOND_OF_ID)
             {
-                handleErrorCode(eventId, interaction)
+                handleErrorCode(eventId, response)
                 return@on
             }
 
@@ -57,12 +57,12 @@ object CreateEventCommand : PubyCommand
         }
     }
 
-    private suspend fun handleErrorCode(eventCreationResult: Int, response: ChatInputCommandInteraction)
+    private suspend fun handleErrorCode(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior)
     {
         when (eventCreationResult)
         {
-            -2 -> response.respondEphemeral { content = "**Max** number of events reached, cannot create any event now, wait for someone to finish theirs!" }
-            else -> response.respondEphemeral { content = "An *unknown* error occurred while creating the event" }
+            -2 -> response.respond { content = "**Max** number of events reached, cannot create any event now, wait for someone to finish theirs!" }
+            else -> response.respond { content = "An *unknown* error occurred while creating the event" }
         }
     }
 
