@@ -7,7 +7,7 @@ import me.trup10ka.puby.util.EventCreationStatusCode.FAIL_MAX_EVENTS_REACHED
 
 class PubyEventManager
 {
-    private val pubyEvents: MutableList<PubyEvent> = mutableListOf()
+    val pubyEvents: MutableList<PubyEvent> = mutableListOf()
 
     fun createEvent(pubyEventDTO: PubyEventDTO): Int
     {

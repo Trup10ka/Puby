@@ -52,7 +52,7 @@ object CreateEventCommand : PubyCommand
                 return@on
             }
 
-            val event = pubyEventManager.findEventById(eventId)!!
+            val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
             respondWithEventCreated(event, response)
         }
     }
