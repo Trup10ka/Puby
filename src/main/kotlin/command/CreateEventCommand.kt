@@ -58,12 +58,16 @@ class CreateEventCommand(
         }
     }
 
-    private suspend fun handleErrorCode(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior)
+    private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
     {
-        when (eventCreationResult)
-        {
-            -2 -> response.respond { content = "**Max** number of events reached, cannot create any event now, wait for someone to finish theirs!" }
-            else -> response.respond { content = "An *unknown* error occurred while creating the event" }
+        response.respond {
+            embed {
+                color = Color( 247, 168, 36)
+
+                title = "Event created"
+                this.description = event.toFancyString()
+                footer { text = "Event ID: ${event.id}" }
+            }
         }
     }
 
@@ -86,21 +90,12 @@ class CreateEventCommand(
         )
     }
 
-    private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
+    private suspend fun handleErrorCode(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior)
     {
-        response.respond {
-            embed {
-                color = Color( 247, 168, 36)
-
-                title = "Event created"
-                this.description = event.toFancyString()
-                footer { text = "Event ID: ${event.id}" }
-            }
-            /*actionRow {
-                interactionButton(ButtonStyle.Primary, "click_button") {
-                    label = "Click me!"
-                }
-            }*/
+        when (eventCreationResult)
+        {
+            -2 -> response.respond { content = "**Max** number of events reached, cannot create any event now, wait for someone to finish theirs!" }
+            else -> response.respond { content = "An *unknown* error occurred while creating the event" }
         }
     }
 }
