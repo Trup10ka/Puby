@@ -3,7 +3,10 @@ package me.trup10ka.puby.command
 import dev.kord.core.Kord
 import me.trup10ka.puby.event.PubyEventManager
 
-object ListMembersCommand : PubyCommand
+class ListMembersCommand(
+    commandName: String,
+    commandDescription: String
+) : PubyCommand(commandName, commandDescription)
 {
     override suspend fun init(kordClient: Kord)
     {

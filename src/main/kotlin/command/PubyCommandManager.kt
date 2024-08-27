@@ -9,12 +9,12 @@ class PubyCommandManager(
 )
 {
     private val commands = listOf(
-        CreateEventCommand,
-        DeleteEventCommand,
-        AlterEventCommand,
-        AddMemberCommand,
-        RemoveMemberCommand,
-        ListMembersCommand,
+        CreateEventCommand("ce", "Create a new event"),
+        DeleteEventCommand("de", "Delete an event"),
+        AlterEventCommand("ae", "Alter an event"),
+        AddMemberCommand("am", "Add a member to an event"),
+        RemoveMemberCommand("rm", "Remove a member from an event"),
+        ListMembersCommand("lm", "List members of an event"),
     )
 
     suspend fun initCommands()

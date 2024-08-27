@@ -2,10 +2,8 @@ package me.trup10ka.puby.command
 
 import dev.kord.common.Color
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.respondEphemeral
 import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.respond
-import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
@@ -18,13 +16,16 @@ import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 
-object CreateEventCommand : PubyCommand
+class CreateEventCommand(
+    commandName: String,
+    commandDescription: String
+) : PubyCommand(commandName, commandDescription)
 {
     override suspend fun init(kordClient: Kord)
     {
         kordClient.createGlobalChatInputCommand(
-            "cr",
-            "Create a new event"
+            commandName,
+            commandDescription
         ) {
             string("name", "The name of the event") { required = true }
             string("description", "The description of the event")

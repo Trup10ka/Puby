@@ -2,28 +2,29 @@ package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.respond
-import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.string
-import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 
-object DeleteEventCommand : PubyCommand
+class DeleteEventCommand(
+    commandName: String,
+    commandDescription: String
+) : PubyCommand(commandName, commandDescription)
 {
     override suspend fun init(kordClient: Kord)
     {
         kordClient.createGlobalChatInputCommand(
-            "de",
-            "Deletes an event"
+            commandName,
+            commandDescription
         ) {
             string("name", "The name of the event") { required = true }
         }
 
         kordClient.createGlobalChatInputCommand(
-            "de",
-            "Deletes an event"
+            commandName,
+            commandDescription
         ) {
             integer("id", "The id of the event") { required = true }
         }

@@ -3,9 +3,9 @@ package me.trup10ka.puby.command
 import dev.kord.core.Kord
 import me.trup10ka.puby.event.PubyEventManager
 
-interface PubyCommand
+abstract class PubyCommand(val commandName: String, val commandDescription: String)
 {
-    suspend fun init(kordClient: Kord)
+    abstract suspend fun init(kordClient: Kord)
 
-    suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
+    abstract suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
 }
