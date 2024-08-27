@@ -1,5 +1,6 @@
 package me.trup10ka.puby.event
 
+import dev.kord.core.entity.interaction.InteractionCommand
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.receipt.Receipt
 import me.trup10ka.puby.util.EventCreationStatusCode.FAIL_MAX_EVENTS_REACHED
@@ -30,14 +31,20 @@ class PubyEventManager
 
     fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
 
+    fun getEventWithIdOrName(command: InteractionCommand): PubyEvent?
+    {
+        return if (command.options["name"] != null)
+                pubyEvents.find { it.name == command.options["name"]!!.value as String }
+            else
+                pubyEvents.find { it.id == command.options["id"]!!.value as Int }
+    }
+
     private fun generateId(): Int
     {
         var randomNumber = (1000..10000).random()
 
-        while (pubyEvents.any { it.id == randomNumber })
-        {
+        while (pubyEvents.any { it.id == randomNumber } )
             randomNumber = (LOWER_BOND_OF_ID..UPPER_BOND_OF_ID).random()
-        }
 
         return randomNumber
     }

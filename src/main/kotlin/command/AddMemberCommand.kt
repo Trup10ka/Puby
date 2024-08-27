@@ -1,6 +1,8 @@
 package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
+import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
+import dev.kord.core.on
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import dev.kord.rest.builder.interaction.string
@@ -29,5 +31,14 @@ object AddMemberCommand : PubyCommand
 
     override suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
     {
+        kordClient.on<ChatInputCommandInteractionCreateEvent> {
+
+            val response = interaction.deferPublicResponse()
+            val command = interaction.command
+
+            if (command.rootName != "am") return@on
+
+            val event = pubyEventManager.getEventWithIdOrName(command)
+        }
     }
 }

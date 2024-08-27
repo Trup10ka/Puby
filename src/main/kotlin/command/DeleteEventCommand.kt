@@ -38,7 +38,7 @@ object DeleteEventCommand : PubyCommand
 
             if (command.rootName != "de") return@on
 
-            val event = getEventWithIdOrName(command, pubyEventManager)
+            val event = pubyEventManager.getEventWithIdOrName(command)
 
             if (event == null)
             {
@@ -51,17 +51,5 @@ object DeleteEventCommand : PubyCommand
                 response.respond { content = "Event deleted" }
             }
         }
-    }
-
-    private fun getEventWithIdOrName(command: InteractionCommand, pubyEventManager: PubyEventManager): PubyEvent?
-    {
-        return if (command.options["name"] != null)
-            {
-                val eventName = command.options["name"]!!.value as String
-                pubyEventManager.findEventByName(eventName)
-            }
-            else pubyEventManager.findEventById(
-                command.options["id"]!!.value as Int
-            )
     }
 }
