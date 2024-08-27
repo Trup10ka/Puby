@@ -11,5 +11,6 @@ build/
 *.iml
 *.ipr
 out/
+.kotlin
 !**/src/main/**/out/
 !**/src/test/**/out/
