@@ -1,7 +1,9 @@
 package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
+import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.respond
+import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
 import dev.kord.rest.builder.interaction.integer
@@ -39,18 +41,22 @@ class DeleteEventCommand(
 
             if (command.rootName != "de") return@on
 
-            val event = pubyEventManager.getEventWithIdOrName(command)
+            deleteEventIfExists(response, command, pubyEventManager)
+        }
+    }
 
-            if (event == null)
-            {
-                response.respond { content = "Event not found" }
-                return@on
-            }
-            else
-            {
-                pubyEventManager.deleteEvent(event.id)
-                response.respond { content = "Event deleted" }
-            }
+    private suspend fun deleteEventIfExists(response: DeferredPublicMessageInteractionResponseBehavior, command: InteractionCommand, pubyEventManager: PubyEventManager)
+    {
+        val event = pubyEventManager.getEventWithIdOrName(command)
+
+        if (event == null)
+        {
+            response.respond { content = "Event not found" }
+        }
+        else
+        {
+            pubyEventManager.deleteEvent(event.id)
+            response.respond { content = "Event deleted" }
         }
     }
 }
