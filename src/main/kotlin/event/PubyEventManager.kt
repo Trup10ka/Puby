@@ -28,10 +28,6 @@ class PubyEventManager
         return pubyEvent.id
     }
 
-    fun findEventById(id: Int) = pubyEvents.find { it.id == id }
-
-    fun findEventByName(eventName: String) = pubyEvents.find { it.name == eventName }
-
     fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
 
     private fun generateId(): Int
