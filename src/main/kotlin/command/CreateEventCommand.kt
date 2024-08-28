@@ -5,8 +5,6 @@ import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.entity.interaction.InteractionCommand
-import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
-import dev.kord.core.on
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.rest.builder.interaction.string
 import dev.kord.rest.builder.message.embed
@@ -36,26 +34,18 @@ class CreateEventCommand(
         }
     }
 
-    override suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, command: InteractionCommand, pubyEventManager: PubyEventManager)
     {
-        kordClient.on<ChatInputCommandInteractionCreateEvent> {
+        val eventId = pubyEventManager.createEvent(assembleEventDTO(command))
 
-            val response = interaction.deferPublicResponse()
-            val command = interaction.command
-
-            if (command.rootName != "cr") return@on
-
-            val eventId =  pubyEventManager.createEvent(assembleEventDTO(command))
-
-            if (eventId < PubyEventManager.LOWER_BOND_OF_ID || eventId > PubyEventManager.UPPER_BOND_OF_ID)
-            {
-                handleErrorCode(eventId, response)
-                return@on
-            }
-
-            val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
-            respondWithEventCreated(event, response)
+        if (eventId < PubyEventManager.LOWER_BOND_OF_ID || eventId > PubyEventManager.UPPER_BOND_OF_ID)
+        {
+            handleErrorCode(eventId, responseBehavior)
+            return
         }
+
+        val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
+        respondWithEventCreated(event, responseBehavior)
     }
 
     private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)

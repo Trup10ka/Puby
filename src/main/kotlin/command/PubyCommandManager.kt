@@ -1,6 +1,14 @@
 package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
+import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
+import dev.kord.core.on
+import me.trup10ka.puby.command.CommandsAbbreviation.CREATE_EVENT
+import me.trup10ka.puby.command.CommandsAbbreviation.DELETE_EVENT
+import me.trup10ka.puby.command.CommandsAbbreviation.ALTER_EVENT
+import me.trup10ka.puby.command.CommandsAbbreviation.LIST_MEMBERS
+import me.trup10ka.puby.command.CommandsAbbreviation.REMOVE_MEMBER
+import me.trup10ka.puby.command.CommandsAbbreviation.ADD_MEMBER
 import me.trup10ka.puby.event.PubyEventManager
 
 class PubyCommandManager(
@@ -8,22 +16,36 @@ class PubyCommandManager(
     private val pubyEventManager: PubyEventManager
 )
 {
-    private val commands = listOf(
-        CreateEventCommand("ce", "Create a new event"),
-        DeleteEventCommand("de", "Delete an event"),
-        AlterEventCommand("ae", "Alter an event"),
-        AddMemberCommand("am", "Add a member to an event"),
-        RemoveMemberCommand("rm", "Remove a member from an event"),
-        ListMembersCommand("lm", "List members of an event"),
+    private val commands = mapOf(
+        CREATE_EVENT to CreateEventCommand(CREATE_EVENT.abbreviation, "Create a new event"),
+        DELETE_EVENT to DeleteEventCommand(DELETE_EVENT.abbreviation, "Delete an event"),
+        ALTER_EVENT to AlterEventCommand(ALTER_EVENT.abbreviation, "Alter an event"),
+        ADD_MEMBER to AddMemberCommand(ADD_MEMBER.abbreviation, "Add a member to an event"),
+        REMOVE_MEMBER to RemoveMemberCommand(REMOVE_MEMBER.abbreviation, "Remove a member from an event"),
+        LIST_MEMBERS to ListMembersCommand(LIST_MEMBERS.abbreviation, "List members of an event"),
     )
 
     suspend fun initCommands()
     {
-        commands.forEach { it.init(kordClient) }
+        commands.forEach { it.value.init(kordClient) }
     }
 
-    suspend fun registerListeners()
+    fun registerListeners()
     {
-        commands.forEach { it.registerListener(kordClient, pubyEventManager) }
+        kordClient.on<ChatInputCommandInteractionCreateEvent> {
+
+            val response = interaction.deferPublicResponse()
+            val command = interaction.command
+
+            when (command.rootName)
+            {
+                CREATE_EVENT.abbreviation -> commands[CREATE_EVENT]!!.handleCommand(response, command, pubyEventManager)
+                DELETE_EVENT.abbreviation -> commands[DELETE_EVENT]!!.handleCommand(response, command, pubyEventManager)
+                ALTER_EVENT.abbreviation -> commands[ALTER_EVENT]!!.handleCommand(response, command, pubyEventManager)
+                ADD_MEMBER.abbreviation -> commands[ADD_MEMBER]!!.handleCommand(response, command, pubyEventManager)
+                REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(response, command, pubyEventManager)
+                LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(response, command, pubyEventManager)
+            }
+        }
     }
 }

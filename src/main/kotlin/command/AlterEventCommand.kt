@@ -1,6 +1,8 @@
 package me.trup10ka.puby.command
 
 import dev.kord.core.Kord
+import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
+import dev.kord.core.entity.interaction.InteractionCommand
 import me.trup10ka.puby.event.PubyEventManager
 
 class AlterEventCommand(
@@ -12,7 +14,11 @@ class AlterEventCommand(
     {
     }
 
-    override suspend fun registerListener(kordClient: Kord, pubyEventManager: PubyEventManager)
-    {
+    override suspend fun handleCommand(
+        responseBehavior: DeferredPublicMessageInteractionResponseBehavior,
+        command: InteractionCommand,
+        pubyEventManager: PubyEventManager
+    ) {
     }
+
 }
