@@ -20,7 +20,6 @@ class PubyEvent(
         if (members.any { it.discordId == member.discordId })
             return false
 
-        println("adding")
         members.add(member)
         return true
     }
