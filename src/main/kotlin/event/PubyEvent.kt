@@ -11,10 +11,20 @@ class PubyEvent(
     var place: String,
     var date: LocalDate?,
     var time: LocalTime?,
-    val members: MutableList<PubyEventMember> = mutableListOf(),
-    var receipt: Receipt?
+    var receipt: Receipt?,
+    private val members: MutableList<PubyEventMember> = mutableListOf()
 )
 {
+    fun addMember(member: PubyEventMember): Boolean
+    {
+        if (members.any { it.discordId == member.discordId })
+            return false
+
+        println("adding")
+        members.add(member)
+        return true
+    }
+
     fun toFancyString(): String
     {
         val description = if (description.isNotBlank()) "Description: $description\n" else ""
