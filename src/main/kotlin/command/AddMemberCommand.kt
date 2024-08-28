@@ -54,6 +54,10 @@ class AddMemberCommand(
     {
         val user = command.users["discord_tag"]!!
 
+        val member = PubyEventMember(
+            user.tag,
+            user.id
+        )
 
         return if (event.addMember(member))
             member

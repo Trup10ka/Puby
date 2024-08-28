@@ -1,6 +1,8 @@
 package me.trup10ka.puby.event
 
+import dev.kord.common.entity.Snowflake
+
 data class PubyEventMember(
-    val name: String,
-    val discordId: String
+    val discordId: String,
+    val snowflake: Snowflake
 )
