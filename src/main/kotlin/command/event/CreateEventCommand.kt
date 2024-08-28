@@ -6,14 +6,14 @@ import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.rest.builder.interaction.string
-import dev.kord.rest.builder.message.embed
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
-import me.trup10ka.puby.util.EMBED_COLOR
+import me.trup10ka.puby.util.respondEmbeddedFail
+import me.trup10ka.puby.util.respondEmbeddedSuccess
 
 class CreateEventCommand(
     commandName: String,
@@ -51,14 +51,10 @@ class CreateEventCommand(
 
     private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
     {
-        response.respond {
-            embed {
-                color = EMBED_COLOR
-
-                title = "Event created"
-                this.description = event.toFancyString()
-                footer { text = "Event ID: ${event.id}" }
-            }
+        response.respondEmbeddedSuccess {
+            title = "Event created"
+            this.description = event.toFancyString()
+            footer { text = "Event ID: ${event.id}" }
         }
     }
 
@@ -85,8 +81,8 @@ class CreateEventCommand(
     {
         when (eventCreationResult)
         {
-            -2 -> response.respond { content = "**Max** number of events reached, cannot create any event now, wait for someone to finish theirs!" }
-            else -> response.respond { content = "An *unknown* error occurred while creating the event" }
+            -2 -> response.respondEmbeddedFail { title = "`Max` number of events reached, cannot create any event now, wait for someone to finish theirs!" }
+            else -> response.respondEmbeddedFail { title = "An `unknown` error occurred while creating the event" }
         }
     }
 }

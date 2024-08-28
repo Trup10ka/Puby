@@ -7,6 +7,8 @@ import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.integer
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.respondEmbeddedFail
+import me.trup10ka.puby.util.respondEmbeddedSuccess
 
 class DeleteEventCommand(
     commandName: String,
@@ -28,12 +30,12 @@ class DeleteEventCommand(
         val event = pubyEventManager.pubyEvents.find { it.id == command.integers["id"]!!.toInt() }
 
         if (event == null)
-            responseBehavior.respond { content = "Event not found" }
+            responseBehavior.respondEmbeddedFail { title = "Event not found" }
 
         else
         {
             pubyEventManager.deleteEvent(event.id)
-            responseBehavior.respond { content = "Event deleted" }
+            responseBehavior.respondEmbeddedSuccess { title = "Event deleted" }
         }
     }
 }

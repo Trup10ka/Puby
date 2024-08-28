@@ -10,6 +10,8 @@ import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.event.PubyEventMember
+import me.trup10ka.puby.util.respondEmbeddedFail
+import me.trup10ka.puby.util.respondEmbeddedSuccess
 
 class AddMemberCommand(
     commandName: String,
@@ -33,7 +35,7 @@ class AddMemberCommand(
 
         if (event == null)
         {
-            responseBehavior.respond { content = "Event not found" }
+            responseBehavior.respondEmbeddedFail { title = "Event not found" }
             return
         }
 
@@ -44,11 +46,9 @@ class AddMemberCommand(
     private suspend fun respondWhetherMemberAdded(response: DeferredPublicMessageInteractionResponseBehavior, member: PubyEventMember?)
     {
         if (member == null)
-            response.respond { content = "Member already in the event!" }
+            response.respondEmbeddedFail { title = "Member already in the event!" }
         else
-            response.respond {
-                content = "Member <@${member.snowflake.value}> added to the event!"
-            }
+            response.respondEmbeddedSuccess(member) { title = "Member `${member.discordId}` added" }
     }
 
     private fun addMemberToEvent(event: PubyEvent, command: InteractionCommand): PubyEventMember?
