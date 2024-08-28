@@ -6,3 +6,6 @@ data class PubyEventMember(
     val discordId: String,
     val snowflake: Snowflake
 )
+{
+    fun toDiscordMentionFormat() = "<@${snowflake.value}>"
+}
