@@ -13,6 +13,7 @@ import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.EMBED_COLOR
 
 class CreateEventCommand(
     commandName: String,
@@ -52,7 +53,7 @@ class CreateEventCommand(
     {
         response.respond {
             embed {
-                color = Color( 247, 168, 36)
+                color = EMBED_COLOR
 
                 title = "Event created"
                 this.description = event.toFancyString()
