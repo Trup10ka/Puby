@@ -2,7 +2,7 @@ package me.trup10ka.puby.command.member
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
-import dev.kord.core.behavior.interaction.response.respond
+import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
@@ -29,9 +29,9 @@ class AddMemberCommand(
         }
     }
 
-    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, command: InteractionCommand, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val event = pubyEventManager.pubyEvents.find { it.id == command.integers["id"]!!.toInt() }
+        val event = pubyEventManager.pubyEvents.find { it.id == interaction.command.integers["id"]!!.toInt() }
 
         if (event == null)
         {
@@ -39,7 +39,7 @@ class AddMemberCommand(
             return
         }
 
-        val member = addMemberToEvent(event, command)
+        val member = addMemberToEvent(event, interaction.command)
         respondWhetherMemberAdded(responseBehavior, member)
     }
 

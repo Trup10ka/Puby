@@ -45,12 +45,12 @@ class PubyCommandManager(
 
             when (command.rootName)
             {
-                CREATE_EVENT.abbreviation -> commands[CREATE_EVENT]!!.handleCommand(response, command, pubyEventManager)
-                DELETE_EVENT.abbreviation -> commands[DELETE_EVENT]!!.handleCommand(response, command, pubyEventManager)
-                ALTER_EVENT.abbreviation -> commands[ALTER_EVENT]!!.handleCommand(response, command, pubyEventManager)
-                ADD_MEMBER.abbreviation -> commands[ADD_MEMBER]!!.handleCommand(response, command, pubyEventManager)
-                REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(response, command, pubyEventManager)
-                LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(response, command, pubyEventManager)
+                CREATE_EVENT.abbreviation -> commands[CREATE_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
+                DELETE_EVENT.abbreviation -> commands[DELETE_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
+                ALTER_EVENT.abbreviation -> commands[ALTER_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
+                ADD_MEMBER.abbreviation -> commands[ADD_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
+                REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
+                LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(response, interaction, pubyEventManager)
             }
         }
     }

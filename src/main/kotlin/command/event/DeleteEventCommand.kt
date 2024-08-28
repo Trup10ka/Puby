@@ -2,8 +2,7 @@ package me.trup10ka.puby.command.event
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
-import dev.kord.core.behavior.interaction.response.respond
-import dev.kord.core.entity.interaction.InteractionCommand
+import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.integer
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEventManager
@@ -25,9 +24,9 @@ class DeleteEventCommand(
         }
     }
 
-    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, command: InteractionCommand, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val event = pubyEventManager.pubyEvents.find { it.id == command.integers["id"]!!.toInt() }
+        val event = pubyEventManager.pubyEvents.find { it.id == interaction.command.integers["id"]!!.toInt() }
 
         if (event == null)
             responseBehavior.respondEmbeddedFail { title = "Event not found" }
