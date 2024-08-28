@@ -31,14 +31,6 @@ class PubyEventManager
 
     fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
 
-    fun getEventWithIdOrName(command: InteractionCommand): PubyEvent?
-    {
-        return if (command.options["name"] != null)
-                pubyEvents.find { it.name == command.options["name"]!!.value as String }
-            else
-                pubyEvents.find { it.id == command.options["id"]!!.value as Int }
-    }
-
     private fun generateId(): Int
     {
         var randomNumber = (1000..10000).random()
