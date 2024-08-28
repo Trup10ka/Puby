@@ -1,6 +1,5 @@
-package me.trup10ka.puby.command
+package me.trup10ka.puby.command.event
 
-import dev.kord.common.Color
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.respond
@@ -10,6 +9,7 @@ import dev.kord.rest.builder.interaction.string
 import dev.kord.rest.builder.message.embed
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
+import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager

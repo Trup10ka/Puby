@@ -9,6 +9,12 @@ import me.trup10ka.puby.command.CommandsAbbreviation.ALTER_EVENT
 import me.trup10ka.puby.command.CommandsAbbreviation.LIST_MEMBERS
 import me.trup10ka.puby.command.CommandsAbbreviation.REMOVE_MEMBER
 import me.trup10ka.puby.command.CommandsAbbreviation.ADD_MEMBER
+import me.trup10ka.puby.command.event.AlterEventCommand
+import me.trup10ka.puby.command.event.CreateEventCommand
+import me.trup10ka.puby.command.event.DeleteEventCommand
+import me.trup10ka.puby.command.member.AddMemberCommand
+import me.trup10ka.puby.command.member.ListMembersCommand
+import me.trup10ka.puby.command.member.RemoveMemberCommand
 import me.trup10ka.puby.event.PubyEventManager
 
 class PubyCommandManager(
