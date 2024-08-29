@@ -5,7 +5,7 @@ import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteract
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.embed
-import me.trup10ka.puby.event.PubyEventMember
+import me.trup10ka.puby.data.PubyEventMember
 
 val EMBED_COLOR_SUCCESS = Color( 247, 168, 36)
 val EMBED_COLOR_FAIL = Color( 255, 0, 0)

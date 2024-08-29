@@ -1,6 +1,6 @@
 package me.trup10ka.puby.receipt
 
-import me.trup10ka.puby.event.PubyEventMember
+import me.trup10ka.puby.data.PubyEventMember
 
 class Receipt(
     val payers: MutableList<PubyEventMember> = mutableListOf(),

@@ -1,4 +1,4 @@
-package me.trup10ka.puby.event
+package me.trup10ka.puby.data
 
 import dev.kord.common.entity.Snowflake
 

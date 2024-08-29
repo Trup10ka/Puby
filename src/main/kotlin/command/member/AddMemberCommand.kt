@@ -7,10 +7,9 @@ import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import me.trup10ka.puby.command.EventUtilizerCommand
-import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
-import me.trup10ka.puby.event.PubyEventMember
+import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.util.respondEmbeddedFail
 import me.trup10ka.puby.util.respondEmbeddedSuccess
 

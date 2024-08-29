@@ -2,6 +2,7 @@ package me.trup10ka.puby.event
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
+import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.receipt.Receipt
 
 class PubyEvent(
