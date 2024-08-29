@@ -6,6 +6,7 @@ import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
+import me.trup10ka.puby.command.EventUtilizerCommand
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
@@ -16,7 +17,7 @@ import me.trup10ka.puby.util.respondEmbeddedSuccess
 class AddMemberCommand(
     commandName: String,
     commandDescription: String
-) : PubyCommand(commandName, commandDescription)
+) : EventUtilizerCommand(commandName, commandDescription)
 {
     override suspend fun init(kordClient: Kord)
     {
@@ -31,13 +32,7 @@ class AddMemberCommand(
 
     override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val event = pubyEventManager.pubyEvents.find { it.id == interaction.command.integers["id"]!!.toInt() }
-
-        if (event == null)
-        {
-            responseBehavior.respondEmbeddedFail { title = "Event not found" }
-            return
-        }
+        val event = getEvent(pubyEventManager, interaction.command.integers["id"]!!.toInt(), responseBehavior) ?: return
 
         val member = addMemberToEvent(event, interaction.command)
         respondWhetherMemberAdded(responseBehavior, member)
