@@ -40,13 +40,12 @@ class CreateEventCommand(
         val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction.command))
 
         if (eventId < PubyEventManager.LOWER_BOND_OF_ID || eventId > PubyEventManager.UPPER_BOND_OF_ID)
-        {
             handleErrorCode(eventId, responseBehavior)
-            return
+        else
+        {
+            val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
+            respondWithEventCreated(event, responseBehavior)
         }
-
-        val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
-        respondWithEventCreated(event, responseBehavior)
     }
 
     private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
