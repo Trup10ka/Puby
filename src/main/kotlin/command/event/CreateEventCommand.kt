@@ -17,11 +17,16 @@ import me.trup10ka.puby.util.respondEmbeddedSuccess
 
 class CreateEventCommand(
     commandName: String,
-    commandDescription: String
+    commandDescription: String,
+
 ) : PubyCommand(commandName, commandDescription)
 {
+    private lateinit var kord: Kord
+
     override suspend fun init(kordClient: Kord)
     {
+        kord = kordClient
+
         kordClient.createGlobalChatInputCommand(
             commandName,
             commandDescription
@@ -39,13 +44,11 @@ class CreateEventCommand(
     {
         val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction.command))
 
-        if (eventId < PubyEventManager.LOWER_BOND_OF_ID || eventId > PubyEventManager.UPPER_BOND_OF_ID)
-            handleErrorCode(eventId, responseBehavior)
-        else
-        {
-            val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
-            respondWithEventCreated(event, responseBehavior)
-        }
+        if (!hasEventBeenCreated(eventId, responseBehavior))
+            return
+
+        val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
+        respondWithEventCreated(event, responseBehavior)
     }
 
     private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
@@ -76,12 +79,16 @@ class CreateEventCommand(
         )
     }
 
-    private suspend fun handleErrorCode(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior)
+    private suspend fun hasEventBeenCreated(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior): Boolean
     {
+        if (eventCreationResult >= PubyEventManager.LOWER_BOND_OF_ID && eventCreationResult <= PubyEventManager.UPPER_BOND_OF_ID)
+            return true
+
         when (eventCreationResult)
         {
             -2 -> response.respondEmbeddedFail { title = "`Max` number of events reached, cannot create any event now, wait for someone to finish theirs!" }
             else -> response.respondEmbeddedFail { title = "An `unknown` error occurred while creating the event" }
         }
+        return false
     }
 }
