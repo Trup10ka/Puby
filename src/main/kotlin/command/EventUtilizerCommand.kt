@@ -27,7 +27,6 @@ abstract class EventUtilizerCommand(
             responseBehavior.respondEmbeddedFail { title = "You are not a member of this event" }
             return false
         }
-
         return true
     }
 }
