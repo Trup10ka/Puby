@@ -24,6 +24,16 @@ class PubyEvent(
         return true
     }
 
+    fun isMemberOfEvent(discordId: String) = members.any { it.discordId == discordId }
+
+    fun removeMember(discordId: String): Boolean
+    {
+        if (!isMemberOfEvent(discordId))
+            return false
+
+        return members.remove(members.find { it.discordId == discordId })
+    }
+
     fun toFancyString(): String
     {
         val description = if (description.isNotBlank()) "Description: $description\n" else ""
