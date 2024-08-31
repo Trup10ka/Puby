@@ -19,4 +19,14 @@ abstract class EventUtilizerCommand(
 
         return event
     }
+
+    suspend fun isCallerMemberOfEvent(event: PubyEvent, discordId: String, responseBehavior: DeferredPublicMessageInteractionResponseBehavior): Boolean
+    {
+        if (!event.isMemberOfEvent(discordId))
+        {
+            responseBehavior.respondEmbeddedFail { title = "You are not a member of this event" }
+            return false
+        }
+        return true
+    }
 }
