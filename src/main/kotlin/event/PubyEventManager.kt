@@ -1,6 +1,5 @@
 package me.trup10ka.puby.event
 
-import dev.kord.core.entity.interaction.InteractionCommand
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.receipt.Receipt
 import me.trup10ka.puby.util.EventCreationStatusCode.FAIL_MAX_EVENTS_REACHED
@@ -21,7 +20,8 @@ class PubyEventManager
             place = pubyEventDTO.place ?: "No place provided",
             date = pubyEventDTO.date,
             time = pubyEventDTO.time,
-            receipt = if (pubyEventDTO.receipt) Receipt() else null
+            receipt = if (pubyEventDTO.receipt) Receipt() else null,
+            creator = pubyEventDTO.creator
         )
 
         pubyEvents.add(pubyEvent)

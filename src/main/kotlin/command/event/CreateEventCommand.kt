@@ -10,6 +10,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.data.PubyEventDTO
+import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.util.respondEmbeddedFail
@@ -42,7 +43,7 @@ class CreateEventCommand(
 
     override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction.command))
+        val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction))
 
         if (!hasEventBeenCreated(eventId, responseBehavior))
             return
@@ -60,25 +61,6 @@ class CreateEventCommand(
         }
     }
 
-    private fun assembleEventDTO(command: InteractionCommand): PubyEventDTO
-    {
-        val name = command.strings["name"]!!
-        val description = command.strings["description"]
-        val place = command.strings["place"]
-        val date = command.strings["date"]?.let { LocalDate.parse(it) }
-        val time = command.strings["time"]?.let { LocalTime.parse(it) }
-        val receipt = command.booleans["receipt"] ?: false
-
-        return PubyEventDTO(
-            name = name,
-            description = description,
-            place = place,
-            date = date,
-            time = time,
-            receipt = receipt
-        )
-    }
-
     private suspend fun hasEventBeenCreated(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior): Boolean
     {
         if (eventCreationResult >= PubyEventManager.LOWER_BOND_OF_ID && eventCreationResult <= PubyEventManager.UPPER_BOND_OF_ID)
@@ -90,5 +72,26 @@ class CreateEventCommand(
             else -> response.respondEmbeddedFail { title = "An `unknown` error occurred while creating the event" }
         }
         return false
+    }
+
+    private fun assembleEventDTO(interaction: ChatInputCommandInteraction): PubyEventDTO
+    {
+        val name = interaction.command.strings["name"]!!
+        val description = interaction.command.strings["description"]
+        val place = interaction.command.strings["place"]
+        val date = interaction.command.strings["date"]?.let { LocalDate.parse(it) }
+        val time = interaction.command.strings["time"]?.let { LocalTime.parse(it) }
+        val receipt = interaction.command.booleans["receipt"] == true
+        val creator = PubyEventMember(interaction.user.tag, interaction.user.id)
+
+        return PubyEventDTO(
+            name = name,
+            description = description,
+            place = place,
+            date = date,
+            time = time,
+            receipt = receipt,
+            creator = creator
+        )
     }
 }

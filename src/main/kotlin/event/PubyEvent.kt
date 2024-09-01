@@ -13,6 +13,7 @@ class PubyEvent(
     var date: LocalDate?,
     var time: LocalTime?,
     var receipt: Receipt?,
+    private val creator: PubyEventMember,
     private val members: MutableList<PubyEventMember> = mutableListOf()
 )
 {
@@ -25,7 +26,7 @@ class PubyEvent(
         return true
     }
 
-    fun isMemberOfEvent(discordId: String) = members.any { it.discordId == discordId }
+    fun isMemberOfEvent(discordId: String) = members.any { it.discordId == discordId } || creator.discordId == discordId
 
     fun removeMember(discordId: String): Boolean
     {
@@ -42,6 +43,7 @@ class PubyEvent(
         val date = "Date: ${ if (date != null) "Date: *$date*\n" else "*Not provided*\n" }"
         val time = "Time: ${ if (time != null) "Time: *$time*\n" else "*Not provided*\n" }"
         val receipt = "Receipt: ${ if (receipt != null) "*Yes*" else "*No*" }"
+        val creator = "Creator: `${creator.discordId}`"
 
         return """
             |## $name
@@ -50,6 +52,7 @@ class PubyEvent(
             | $date
             | $time
             | $receipt
+            | $creator
         """.trimMargin()
     }
 }
