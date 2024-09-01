@@ -16,8 +16,8 @@ class PubyEventManager
         val pubyEvent = PubyEvent(
             id = generateId(),
             name = pubyEventDTO.name,
-            description = pubyEventDTO.description ?: "No description provided",
-            place = pubyEventDTO.place ?: "No place provided",
+            description = pubyEventDTO.description,
+            place = pubyEventDTO.place,
             date = pubyEventDTO.date,
             time = pubyEventDTO.time,
             receipt = if (pubyEventDTO.receipt) Receipt() else null,
