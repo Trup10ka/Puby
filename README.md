@@ -28,8 +28,8 @@ meaning simple commands and easy to understand.
 1. [ ] Creating a discord chat room for the event.
 2. [ ] Option to create a receipt for the expenses of the event.
 3. [ ] Reminder for people about the date and time of the event.
-4. [ ] Notify people to pay an expense to the person who paeventId (case when one person paeventId).
-5. [ ] Notify people to pay an expense to the person who paeventId (case when multiple people paeventId).
+4. [ ] Notify people to pay an expense to the person who paid — a case when one person paid.
+5. [ ] Notify people to pay an expense to the person who paid — a case when multiple people paid.
 6. [ ] Creating a printable list of the expenses.
 
 ## Commands
@@ -48,6 +48,7 @@ For example `/ce` is the command for *C*reate *E*vent.
 | Create event               |      /ce      |        \[ name \] \[ place ] \[ date / time ] \[ members *\*optional* ]        | /ce Dead-Horse Old-Town | *When passing the name argument, name must NOT contain whitespaces* <br/> *When proveventIding place as a name, and not a link to a location, also no whitespaces* |
 | Delete event               |      /de      |                                  \[ eventId ]                                  |     /de Dead-Horse      |                                                *When passing the name argument, name must NOT contain whitespaces*                                                 |
 | Alter event                |      /ae      | \[ eventId ]  \[ -n *(name)* \| -p *(place)* \| -dt *(date time)* ] \[ value ] | /ae 5126 -n Dead-Moose  |                              *It is possible to alter events: Name, Place, Time/Date <br/> Members are handled by specific commands*                               |
+| Show event                 |      /se      |                                  \[ eventId ]                                  |        /se 5126         |                                                                                                                                                                    |
 | Add member                 |      /am      |                \[ eventId ] \[ member eventId \| member name ]                 |    /am 5126 someone     |                                                                                 ∅                                                                                  |
 | Remove member              |      /rm      |                \[ eventId ] \[ member eventId \| member name ]                 |    /rm 5126 someone     |                                                                                 ∅                                                                                  |
 | List members               |      /lm      |                                  \[ eventId ]                                  |        /lm 5126         |                                                                                 ∅                                                                                  |
