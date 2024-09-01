@@ -40,9 +40,9 @@ class PubyEvent(
     {
         val description = "Description: ${ if (description != null) "*$description*" else "*Not provided*" }\n"
         val place = "Place: ${ if (place != null) "*$place*" else "*Not provided*" }\n"
-        val date = "Date: ${ if (date != null) "Date: *$date*\n" else "*Not provided*\n" }"
-        val time = "Time: ${ if (time != null) "Time: *$time*\n" else "*Not provided*\n" }"
-        val receipt = "Receipt: ${ if (receipt != null) "*Yes*" else "*No*" }"
+        val date = "Date: ${ if (date != null) "*$date*" else "*Not provided*" }\n"
+        val time = "Time: ${ if (time != null) "*$time*" else "*Not provided*" }\n"
+        val receipt = "Receipt: ${ if (receipt != null) "*Yes*" else "*No*" }\n"
         val creator = "Creator: `${creator.discordId}`"
 
         return """
