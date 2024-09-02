@@ -1,10 +1,10 @@
 package me.trup10ka.puby.command.event
 
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.DeferredResponseBehavior
 
 class AlterEventCommand(
     commandName: String,
@@ -16,7 +16,7 @@ class AlterEventCommand(
     }
 
     override suspend fun handleCommand(
-        responseBehavior: DeferredPublicMessageInteractionResponseBehavior,
+        responseBehavior: DeferredResponseBehavior,
         interaction: ChatInputCommandInteraction,
         pubyEventManager: PubyEventManager
     ) {

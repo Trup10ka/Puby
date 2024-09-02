@@ -16,6 +16,7 @@ import me.trup10ka.puby.command.member.AddMemberCommand
 import me.trup10ka.puby.command.member.ListMembersCommand
 import me.trup10ka.puby.command.member.RemoveMemberCommand
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.DeferredResponseBehavior
 
 class PubyCommandManager(
     private val kordClient: Kord,
@@ -47,7 +48,7 @@ class PubyCommandManager(
         }
     }
 
-    private suspend fun findCommandAndTrigger(rootName: String, response: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction)
+    private suspend fun findCommandAndTrigger(rootName: String, response: DeferredResponseBehavior, interaction: ChatInputCommandInteraction)
     {
         when (rootName)
         {

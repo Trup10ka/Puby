@@ -1,8 +1,8 @@
 package me.trup10ka.puby.command
 
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedFail
 
 abstract class EventUtilizerCommand(
@@ -10,7 +10,7 @@ abstract class EventUtilizerCommand(
     commandDescription: String
 ) : PubyCommand(commandName, commandDescription)
 {
-    suspend fun getEvent(pubyEventManager: PubyEventManager, id: Int, responseBehavior: DeferredPublicMessageInteractionResponseBehavior): PubyEvent?
+    suspend fun getEvent(pubyEventManager: PubyEventManager, id: Int, responseBehavior: DeferredResponseBehavior): PubyEvent?
     {
         val event = pubyEventManager.pubyEvents.find { it.id == id }
 
@@ -20,7 +20,7 @@ abstract class EventUtilizerCommand(
         return event
     }
 
-    suspend fun isCallerMemberOfEvent(event: PubyEvent, discordId: String, responseBehavior: DeferredPublicMessageInteractionResponseBehavior): Boolean
+    suspend fun isCallerMemberOfEvent(event: PubyEvent, discordId: String, responseBehavior: DeferredResponseBehavior): Boolean
     {
         if (!event.isMemberOfEvent(discordId))
         {

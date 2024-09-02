@@ -1,9 +1,8 @@
 package me.trup10ka.puby.command.event
 
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
+import me.trup10ka.puby.util.DeferredResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
-import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.rest.builder.interaction.string
 import kotlinx.datetime.LocalDate
@@ -41,7 +40,7 @@ class CreateEventCommand(
         }
     }
 
-    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
         val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction))
 
@@ -52,7 +51,7 @@ class CreateEventCommand(
         respondWithEventCreated(event, responseBehavior)
     }
 
-    private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredPublicMessageInteractionResponseBehavior)
+    private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredResponseBehavior)
     {
         response.respondEmbeddedSuccess {
             title = "Event created"
@@ -61,7 +60,7 @@ class CreateEventCommand(
         }
     }
 
-    private suspend fun hasEventBeenCreated(eventCreationResult: Int, response: DeferredPublicMessageInteractionResponseBehavior): Boolean
+    private suspend fun hasEventBeenCreated(eventCreationResult: Int, response: DeferredResponseBehavior): Boolean
     {
         if (eventCreationResult >= PubyEventManager.LOWER_BOND_OF_ID && eventCreationResult <= PubyEventManager.UPPER_BOND_OF_ID)
             return true

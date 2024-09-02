@@ -2,7 +2,6 @@ package me.trup10ka.puby.util
 
 import dev.kord.common.Color
 import dev.kord.common.entity.Snowflake
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.embed
@@ -14,7 +13,7 @@ val Snowflake.discordMentionFormat: String
     get() = "<@$value>"
 
 
-suspend fun DeferredPublicMessageInteractionResponseBehavior.respondEmbeddedSuccess(mention: PubyEventMember? = null, embedBuilder: EmbedBuilder.() -> Unit)
+suspend fun DeferredResponseBehavior.respondEmbeddedSuccess(mention: PubyEventMember? = null, embedBuilder: EmbedBuilder.() -> Unit)
 {
     respond {
 
@@ -27,7 +26,7 @@ suspend fun DeferredPublicMessageInteractionResponseBehavior.respondEmbeddedSucc
     }
 }
 
-suspend fun DeferredPublicMessageInteractionResponseBehavior.respondEmbeddedSuccess(mention: Snowflake, embedBuilder: EmbedBuilder.() -> Unit)
+suspend fun DeferredResponseBehavior.respondEmbeddedSuccess(mention: Snowflake, embedBuilder: EmbedBuilder.() -> Unit)
 {
     respond {
 
@@ -40,7 +39,7 @@ suspend fun DeferredPublicMessageInteractionResponseBehavior.respondEmbeddedSucc
     }
 }
 
-suspend fun DeferredPublicMessageInteractionResponseBehavior.respondEmbeddedFail(mention: PubyEventMember? = null, embedBuilder: EmbedBuilder.() -> Unit)
+suspend fun DeferredResponseBehavior.respondEmbeddedFail(mention: PubyEventMember? = null, embedBuilder: EmbedBuilder.() -> Unit)
 {
     respond {
 

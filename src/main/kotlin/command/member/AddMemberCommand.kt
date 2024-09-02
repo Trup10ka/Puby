@@ -1,7 +1,6 @@
 package me.trup10ka.puby.command.member
 
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.rest.builder.interaction.integer
@@ -10,6 +9,7 @@ import me.trup10ka.puby.command.EventUtilizerCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.data.PubyEventMember
+import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedFail
 import me.trup10ka.puby.util.respondEmbeddedSuccess
 
@@ -29,7 +29,7 @@ class AddMemberCommand(
         }
     }
 
-    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
         val event = getEvent(pubyEventManager, interaction.command.integers["id"]!!.toInt(), responseBehavior) ?: return
 
@@ -37,7 +37,7 @@ class AddMemberCommand(
         respondWhetherMemberAdded(responseBehavior, member)
     }
 
-    private suspend fun respondWhetherMemberAdded(response: DeferredPublicMessageInteractionResponseBehavior, member: PubyEventMember?)
+    private suspend fun respondWhetherMemberAdded(response: DeferredResponseBehavior, member: PubyEventMember?)
     {
         if (member == null)
             response.respondEmbeddedFail { title = "Member already in the event!" }

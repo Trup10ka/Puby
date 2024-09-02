@@ -2,14 +2,13 @@ package me.trup10ka.puby.command.member
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.response.DeferredPublicMessageInteractionResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import me.trup10ka.puby.command.EventUtilizerCommand
-import me.trup10ka.puby.command.PubyCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
+import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedSuccess
 
 class RemoveMemberCommand(
@@ -28,7 +27,7 @@ class RemoveMemberCommand(
         }
     }
 
-    override suspend fun handleCommand(responseBehavior: DeferredPublicMessageInteractionResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
+    override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
         val event = getEvent(pubyEventManager, interaction.command.integers["id"]!!.toInt(), responseBehavior) ?: return
 
@@ -40,7 +39,7 @@ class RemoveMemberCommand(
             responseBehavior)
     }
 
-    suspend fun removeMemberFromEvent(event: PubyEvent, memberId: Pair<String, Snowflake>, responseBehavior: DeferredPublicMessageInteractionResponseBehavior)
+    suspend fun removeMemberFromEvent(event: PubyEvent, memberId: Pair<String, Snowflake>, responseBehavior: DeferredResponseBehavior)
     {
         if (event.removeMember(memberId.first))
             responseBehavior.respondEmbeddedSuccess(memberId.second) { title = "Member `${memberId.first}` removed" }
