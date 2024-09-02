@@ -3,12 +3,12 @@ package me.trup10ka.puby.command
 import dev.kord.core.Kord
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
-import me.trup10ka.puby.command.CommandsAbbreviation.CREATE_EVENT
-import me.trup10ka.puby.command.CommandsAbbreviation.DELETE_EVENT
-import me.trup10ka.puby.command.CommandsAbbreviation.ALTER_EVENT
-import me.trup10ka.puby.command.CommandsAbbreviation.LIST_MEMBERS
-import me.trup10ka.puby.command.CommandsAbbreviation.REMOVE_MEMBER
-import me.trup10ka.puby.command.CommandsAbbreviation.ADD_MEMBER
+import me.trup10ka.puby.command.PubyCommands.CREATE_EVENT
+import me.trup10ka.puby.command.PubyCommands.DELETE_EVENT
+import me.trup10ka.puby.command.PubyCommands.ALTER_EVENT
+import me.trup10ka.puby.command.PubyCommands.LIST_MEMBERS
+import me.trup10ka.puby.command.PubyCommands.REMOVE_MEMBER
+import me.trup10ka.puby.command.PubyCommands.ADD_MEMBER
 import me.trup10ka.puby.command.event.AlterEventCommand
 import me.trup10ka.puby.command.event.CreateEventCommand
 import me.trup10ka.puby.command.event.DeleteEventCommand
@@ -23,12 +23,12 @@ class PubyCommandManager(
 )
 {
     private val commands = mapOf(
-        CREATE_EVENT to CreateEventCommand(CREATE_EVENT.abbreviation, "Create a new event"),
-        DELETE_EVENT to DeleteEventCommand(DELETE_EVENT.abbreviation, "Delete an event"),
-        ALTER_EVENT to AlterEventCommand(ALTER_EVENT.abbreviation, "Alter an event"),
-        ADD_MEMBER to AddMemberCommand(ADD_MEMBER.abbreviation, "Add a member to an event"),
-        REMOVE_MEMBER to RemoveMemberCommand(REMOVE_MEMBER.abbreviation, "Remove a member from an event"),
-        LIST_MEMBERS to ListMembersCommand(LIST_MEMBERS.abbreviation, "List members of an event"),
+        CREATE_EVENT to CreateEventCommand(CREATE_EVENT.abbreviation, CREATE_EVENT.description),
+        DELETE_EVENT to DeleteEventCommand(DELETE_EVENT.abbreviation, DELETE_EVENT.description),
+        ALTER_EVENT to AlterEventCommand(ALTER_EVENT.abbreviation, ALTER_EVENT.description),
+        ADD_MEMBER to AddMemberCommand(ADD_MEMBER.abbreviation, ADD_MEMBER.description),
+        REMOVE_MEMBER to RemoveMemberCommand(REMOVE_MEMBER.abbreviation, REMOVE_MEMBER.description),
+        LIST_MEMBERS to ListMembersCommand(LIST_MEMBERS.abbreviation, LIST_MEMBERS.description),
     )
 
     suspend fun initCommands()
