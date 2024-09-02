@@ -26,6 +26,8 @@ class PubyEvent(
         return true
     }
 
+    fun formatMembersAsDiscordEmbed() = members.joinToString("\n") { "## `${it.discordId}`" }
+
     fun isMemberOfEvent(discordId: String) = members.any { it.discordId == discordId } || creator.discordId == discordId
 
     fun removeMember(discordId: String): Boolean
