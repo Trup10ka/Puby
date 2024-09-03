@@ -20,6 +20,7 @@ import me.trup10ka.puby.command.member.ListMembersCommand
 import me.trup10ka.puby.command.member.RemoveMemberCommand
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.util.DeferredResponseBehavior
+import me.trup10ka.puby.util.respondEmbeddedFail
 
 class PubyCommandManager(
     private val kordClient: Kord,
@@ -63,6 +64,7 @@ class PubyCommandManager(
             ADD_MEMBER.abbreviation -> commands[ADD_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
             REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
             LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(response, interaction, pubyEventManager)
+            else -> response.respondEmbeddedFail { description = "This command is not yet / no longer supported by Puby" }
         }
     }
 }
