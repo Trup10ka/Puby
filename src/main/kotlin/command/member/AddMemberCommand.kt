@@ -12,6 +12,8 @@ import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedFail
 import me.trup10ka.puby.util.respondEmbeddedSuccess
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_ID
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_MEMBER_ID
 
 class AddMemberCommand(
     commandName: String,
@@ -24,8 +26,8 @@ class AddMemberCommand(
             commandName,
             commandDescription
         ) {
-            integer("id", "The id of the event") { required = true }
-            user("discord_tag", "The discord tag of the member to add") { required = true }
+            integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
+            user(EVENT_MEMBER_ID.argName, EVENT_MEMBER_ID.description) { required = true }
         }
     }
 

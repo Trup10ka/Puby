@@ -7,6 +7,7 @@ import me.trup10ka.puby.command.EventUtilizerCommand
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedSuccess
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_ID
 
 class ShowEventCommand(
     commandName: String,
@@ -19,7 +20,7 @@ class ShowEventCommand(
             commandName,
             commandDescription
         ) {
-            integer("id", "The ID of the event to show") { required = true }
+            integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
         }
     }
 

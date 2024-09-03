@@ -10,6 +10,8 @@ import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.util.DeferredResponseBehavior
 import me.trup10ka.puby.util.respondEmbeddedSuccess
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_ID
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_MEMBER_ID
 
 class RemoveMemberCommand(
     commandName: String,
@@ -22,8 +24,8 @@ class RemoveMemberCommand(
             commandName,
             commandDescription
         ) {
-            integer("id", "The id of the event") { required = true }
-            user("discord_tag", "The member to remove") { required = true }
+            integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
+            user(EVENT_MEMBER_ID.argName, EVENT_MEMBER_ID.description) { required = true }
         }
     }
 

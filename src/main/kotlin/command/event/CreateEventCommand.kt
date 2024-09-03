@@ -14,6 +14,12 @@ import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
 import me.trup10ka.puby.util.respondEmbeddedFail
 import me.trup10ka.puby.util.respondEmbeddedSuccess
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_DATE
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_DESCRIPTION
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_NAME
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_PLACE
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_RECEIPT
+import me.trup10ka.puby.command.PubyCommandArguments.EVENT_TIME
 
 class CreateEventCommand(
     commandName: String,
@@ -31,12 +37,12 @@ class CreateEventCommand(
             commandName,
             commandDescription
         ) {
-            string("name", "The name of the event") { required = true }
-            string("description", "The description of the event")
-            string("place", "The place of the event")
-            string("date", "The date of the event")
-            string("time", "The time of the event")
-            boolean("receipt", "Whether the event has a receipt")
+            string(EVENT_NAME.argName, EVENT_NAME.description) { required = true }
+            string(EVENT_DESCRIPTION.argName, EVENT_DESCRIPTION.description)
+            string(EVENT_PLACE.argName, EVENT_PLACE.description)
+            string(EVENT_DATE.argName, EVENT_DATE.description)
+            string(EVENT_TIME.argName, EVENT_TIME.description)
+            boolean(EVENT_RECEIPT.argName, EVENT_RECEIPT.description)
         }
     }
 
