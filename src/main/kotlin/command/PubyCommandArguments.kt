@@ -10,4 +10,6 @@ enum class PubyCommandArguments(val argName: String, val description: String)
     EVENT_TIME("time", "The time of the event"),
     EVENT_RECEIPT("receipt", "Whether the event has a receipt"),
     EVENT_MEMBER_ID("discord-id", "The ID of the member to add/remove"),
+    EVENT_ALTER_PARAM("event_param", "The event parameter to change"),
+    EVENT_PARAM_NEW_VALUE("new_value", "The new value of the event parameter")
 }
