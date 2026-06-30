@@ -37,7 +37,7 @@ class RemoveMemberCommand(
 
         removeMemberFromEvent(
             event,
-            interaction.command.users["discord_tag"]!!.tag to interaction.command.users["discord_tag"]!!.id,
+            interaction.command.users[EVENT_MEMBER_ID.argName]!!.tag to interaction.command.users[EVENT_MEMBER_ID.argName]!!.id,
             responseBehavior)
     }
 

@@ -49,7 +49,7 @@ class AddMemberCommand(
 
     private fun addMemberToEvent(event: PubyEvent, command: InteractionCommand): PubyEventMember?
     {
-        val user = command.users["discord_tag"]!!
+        val user = command.users[EVENT_MEMBER_ID.argName]!!
 
         val member = PubyEventMember(
             user.tag,
