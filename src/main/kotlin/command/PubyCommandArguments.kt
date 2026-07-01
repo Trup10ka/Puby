@@ -2,7 +2,7 @@ package me.trup10ka.puby.command
 
 enum class PubyCommandArguments(val argName: String, val description: String)
 {
-    EVENT_ID("id", "The ID of the event to alter"),
+    EVENT_ID("id", "The ID of the event"),
     EVENT_NAME("name", "The name of the event"),
     EVENT_DESCRIPTION("description", "The description of the event"),
     EVENT_PLACE("place", "The place of the event"),
