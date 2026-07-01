@@ -3,6 +3,7 @@ kotlin = "2.4.0"
 kord = "0.18.1"
 hoplite = "3.0.0.RC1"
 kotlin-logging = "8.0.4"
+logback = "1.5.37"
 
 [libraries]
 kord-core = { module = "dev.kord:kord-core", version.ref = "kord" }
@@ -11,6 +12,7 @@ hoplite-core = { module = "com.sksamuel.hoplite:hoplite-core", version.ref = "ho
 hoplite-hocon = { module = "com.sksamuel.hoplite:hoplite-hocon", version.ref = "hoplite" }
 
 kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

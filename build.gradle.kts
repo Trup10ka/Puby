@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "me.trup10ka.puby"
+group = "com.tpk.puby"
 version = "0.1.0"
 
 repositories {
@@ -19,6 +19,7 @@ dependencies {
 
     /* Utilities */
     implementation(libs.kotlin.logging.jvm)
+    implementation(libs.logback.classic)
 
     testImplementation(kotlin("test"))
 }
