@@ -1,6 +1,7 @@
 package me.trup10ka.puby.event
 
 import me.trup10ka.puby.data.PubyEventDTO
+import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.receipt.Receipt
 import me.trup10ka.puby.util.EventCreationStatusCode.FAIL_MAX_EVENTS_REACHED
 
@@ -25,6 +26,12 @@ class PubyEventManager
         )
 
         pubyEvents.add(pubyEvent)
+        pubyEvent.addMember(
+            PubyEventMember(
+                pubyEventDTO.creator.discordId,
+                pubyEventDTO.creator.snowflake
+            )
+        )
 
         return pubyEvent.id
     }
@@ -38,7 +45,7 @@ class PubyEventManager
 
     private fun generateId(): Int
     {
-        var randomNumber = (1000..10000).random()
+        var randomNumber = (LOWER_BOND_OF_ID..UPPER_BOND_OF_ID).random()
 
         while (pubyEvents.any { it.id == randomNumber } )
             randomNumber = (LOWER_BOND_OF_ID..UPPER_BOND_OF_ID).random()
