@@ -20,7 +20,7 @@ class PubyEventManager
             place = pubyEventDTO.place,
             date = pubyEventDTO.date,
             time = pubyEventDTO.time,
-            receipt = if (pubyEventDTO.receipt) Receipt() else null,
+            receipt = if (pubyEventDTO.receipt) generateReceipt() else null,
             creator = pubyEventDTO.creator
         )
 
@@ -30,6 +30,11 @@ class PubyEventManager
     }
 
     fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
+
+    private fun generateReceipt(): Receipt?
+    {
+        TODO()
+    }
 
     private fun generateId(): Int
     {
