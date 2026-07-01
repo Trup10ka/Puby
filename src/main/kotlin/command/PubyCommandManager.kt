@@ -4,6 +4,7 @@ import dev.kord.core.Kord
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
+import io.github.oshai.kotlinlogging.KotlinLogging
 import me.trup10ka.puby.command.PubyCommands.CREATE_EVENT
 import me.trup10ka.puby.command.PubyCommands.DELETE_EVENT
 import me.trup10ka.puby.command.PubyCommands.ALTER_EVENT
@@ -37,8 +38,11 @@ class PubyCommandManager(
         LIST_MEMBERS to ListMembersCommand(LIST_MEMBERS.abbreviation, LIST_MEMBERS.description),
     )
 
+    private val logger = KotlinLogging.logger {  }
+
     suspend fun initCommands()
     {
+        logger.info { "Initializing commands..." }
         commands.forEach { it.value.init(kordClient) }
     }
 

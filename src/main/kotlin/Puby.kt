@@ -1,6 +1,7 @@
 package me.trup10ka.puby
 
 import dev.kord.core.Kord
+import io.github.oshai.kotlinlogging.KotlinLogging
 import me.trup10ka.puby.command.PubyCommandManager
 import me.trup10ka.puby.config.Config
 import me.trup10ka.puby.config.FileConfigLoader
@@ -18,6 +19,8 @@ class Puby
 
     private val pubyEventManager = PubyEventManager()
 
+    private val logger = KotlinLogging.logger {  }
+
 
     suspend fun init()
     {
@@ -30,7 +33,9 @@ class Puby
 
     suspend fun start()
     {
-        kordClient.login()
+        kordClient.login {
+            logger.info { "Puby is running " }
+        }
     }
 
     private suspend fun initKordClient()

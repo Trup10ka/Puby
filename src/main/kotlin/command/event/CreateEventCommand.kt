@@ -5,6 +5,7 @@ import me.trup10ka.puby.util.DeferredResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.rest.builder.interaction.string
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.PubyCommand
@@ -29,8 +30,11 @@ class CreateEventCommand(
 {
     private lateinit var kord: Kord
 
+    private val logger = KotlinLogging.logger {}
+
     override suspend fun init(kordClient: Kord)
     {
+        logger.info { "Initiating command: '$commandName'" }
         kord = kordClient
 
         kordClient.createGlobalChatInputCommand(
@@ -44,6 +48,7 @@ class CreateEventCommand(
             string(EVENT_TIME.argName, EVENT_TIME.description)
             boolean(EVENT_RECEIPT.argName, EVENT_RECEIPT.description)
         }
+        logger.info { "Command '$commandName' initiated" }
     }
 
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
@@ -74,7 +79,7 @@ class CreateEventCommand(
         when (eventCreationResult)
         {
             -2 -> response.respondEmbeddedFail { title = "`Max` number of events reached, cannot create any event now, wait for someone to finish theirs!" }
-            else -> response.respondEmbeddedFail { title = "An `unknown` error occurred while creating the event" }
+            else -> response.respondEmbeddedFail { title = "An `unknown` error occurred while creating the event, try again" }
         }
         return false
     }

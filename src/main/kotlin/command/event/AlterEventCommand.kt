@@ -4,6 +4,7 @@ import dev.kord.core.Kord
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.string
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.EventUtilizerCommand
@@ -21,8 +22,12 @@ class AlterEventCommand(
     commandDescription: String
 ) : EventUtilizerCommand(commandName, commandDescription)
 {
+
+    private val logger = KotlinLogging.logger {}
+
     override suspend fun init(kordClient: Kord)
     {
+        logger.info { "Initializing command '$commandName'" }
         kordClient.createGlobalChatInputCommand(
             commandName,
             commandDescription
@@ -30,14 +35,15 @@ class AlterEventCommand(
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
             string(EVENT_ALTER_PARAM.argName, EVENT_ALTER_PARAM.description) {
                 required = true
-                choice("N", "Name")
-                choice("DE", "Description")
-                choice("P", "Place")
-                choice("DA", "Date")
-                choice("T", "Time")
+                choice("name", "Name")
+                choice("description", "Description")
+                choice("place", "Place")
+                choice("date", "Date")
+                choice("time", "Time")
             }
             string(EVENT_PARAM_NEW_VALUE.argName,EVENT_PARAM_NEW_VALUE.description) { required = true }
         }
+        logger.info { "Command '$commandName' initialized" }
     }
 
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
@@ -63,11 +69,11 @@ class AlterEventCommand(
 
         when(eventParam)
         {
-            "N" -> event.name = newValue
-            "DE" -> event.description = newValue
-            "P" -> event.place = newValue
-            "DA" -> event.date = LocalDate.parse(newValue)
-            "T" -> event.time = LocalTime.parse(newValue)
+            "name" -> event.name = newValue
+            "description" -> event.description = newValue
+            "place" -> event.place = newValue
+            "date" -> event.date = LocalDate.parse(newValue)
+            "time" -> event.time = LocalTime.parse(newValue)
             else -> return false
         }
         return true

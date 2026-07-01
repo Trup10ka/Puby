@@ -5,6 +5,7 @@ import dev.kord.core.Kord
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
+import io.github.oshai.kotlinlogging.KotlinLogging
 import me.trup10ka.puby.command.EventUtilizerCommand
 import me.trup10ka.puby.event.PubyEvent
 import me.trup10ka.puby.event.PubyEventManager
@@ -18,8 +19,12 @@ class RemoveMemberCommand(
     commandDescription: String
 ) : EventUtilizerCommand(commandName, commandDescription)
 {
+
+    private val logger = KotlinLogging.logger { }
+
     override suspend fun init(kordClient: Kord)
     {
+        logger.info { "Initiating command: '$commandName'" }
         kordClient.createGlobalChatInputCommand(
             commandName,
             commandDescription
@@ -27,6 +32,7 @@ class RemoveMemberCommand(
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
             user(EVENT_MEMBER_ID.argName, EVENT_MEMBER_ID.description) { required = true }
         }
+        logger.info { "Initialized command: '$commandName'" }
     }
 
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
