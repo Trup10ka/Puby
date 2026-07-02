@@ -51,3 +51,12 @@ suspend fun DeferredResponseBehavior.respondEmbeddedFail(mention: PubyEventMembe
         }
     }
 }
+
+fun readAllSnowflakes(line: String): List<Snowflake>
+{
+    val mentionRegex = Regex("<@!?(\\d+)>")
+
+    return mentionRegex.findAll(line).map {
+        Snowflake(it.groupValues[1])
+    }.toList()
+}
