@@ -88,12 +88,12 @@ class CreateEventCommand(
 
     private fun assembleEventDTO(interaction: ChatInputCommandInteraction): PubyEventDTO
     {
-        val name = interaction.command.strings["name"]!!
-        val description = interaction.command.strings["description"]
-        val place = interaction.command.strings["place"]
-        val date = interaction.command.strings["date"]?.let { LocalDate.parse(it) }
-        val time = interaction.command.strings["time"]?.let { LocalTime.parse(it) }
-        val receipt = interaction.command.booleans["pubyReceipt"] == true
+        val name = interaction.command.strings[EVENT_NAME.argName]!!
+        val description = interaction.command.strings[EVENT_DESCRIPTION.argName]
+        val place = interaction.command.strings[EVENT_PLACE.argName]
+        val date = interaction.command.strings[EVENT_DATE.argName]?.let { LocalDate.parse(it) }
+        val time = interaction.command.strings[EVENT_TIME.argName]?.let { LocalTime.parse(it) }
+        val receipt = interaction.command.booleans[EVENT_RECEIPT.argName] == true
         val creator = PubyEventMember(interaction.user.tag, interaction.user.id)
 
         return PubyEventDTO(

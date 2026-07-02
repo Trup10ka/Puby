@@ -34,7 +34,7 @@ class ListMembersCommand(
 
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val event = getEvent(pubyEventManager, interaction.command.integers["id"]!!.toInt(), responseBehavior) ?: return
+        val event = getEvent(pubyEventManager, interaction.command.integers[EVENT_ID.argName]!!.toInt(), responseBehavior) ?: return
 
         logger.info { "Listing members for event: ${event.id}" }
         responseBehavior.respondEmbeddedSuccess {

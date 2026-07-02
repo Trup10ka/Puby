@@ -50,7 +50,7 @@ class AlterEventCommand(
 
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
-        val event = getEvent(pubyEventManager, interaction.command.integers["id"]!!.toInt(), responseBehavior) ?: return
+        val event = getEvent(pubyEventManager, interaction.command.integers[EVENT_ID.argName]!!.toInt(), responseBehavior) ?: return
 
         if (updateEventParameter(event, interaction.command.strings))
             responseBehavior.respondEmbeddedSuccess {
@@ -66,8 +66,8 @@ class AlterEventCommand(
 
     private fun updateEventParameter(event: PubyEvent, commandStrings: Map<String, String>): Boolean
     {
-        val eventParam = commandStrings["event_param"]!!
-        val newValue = commandStrings["new_value"]!!
+        val eventParam = commandStrings[EVENT_ALTER_PARAM.argName]!!
+        val newValue = commandStrings[EVENT_PARAM_NEW_VALUE.argName]!!
 
         when(eventParam)
         {
