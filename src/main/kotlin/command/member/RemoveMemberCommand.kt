@@ -3,6 +3,7 @@ package me.trup10ka.puby.command.member
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
+import dev.kord.rest.builder.interaction.GlobalMultiApplicationCommandBuilder
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -22,10 +23,10 @@ class RemoveMemberCommand(
 
     private val logger = KotlinLogging.logger { }
 
-    override suspend fun init(kordClient: Kord)
+    override fun register(builder: GlobalMultiApplicationCommandBuilder, kordClient: Kord)
     {
         logger.info { "Initiating command: '$commandName'" }
-        kordClient.createGlobalChatInputCommand(
+        builder.input(
             commandName,
             commandDescription
         ) {

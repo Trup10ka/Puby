@@ -3,6 +3,7 @@ package me.trup10ka.puby.command.event
 import dev.kord.core.Kord
 import me.trup10ka.puby.util.DeferredResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
+import dev.kord.rest.builder.interaction.GlobalMultiApplicationCommandBuilder
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.rest.builder.interaction.string
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -32,12 +33,12 @@ class CreateEventCommand(
 
     private val logger = KotlinLogging.logger {}
 
-    override suspend fun init(kordClient: Kord)
+    override fun register(builder: GlobalMultiApplicationCommandBuilder, kordClient: Kord)
     {
         logger.info { "Initiating command: '$commandName'" }
         kord = kordClient
 
-        kordClient.createGlobalChatInputCommand(
+        builder.input(
             commandName,
             commandDescription
         ) {

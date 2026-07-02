@@ -38,12 +38,21 @@ class PubyCommandManager(
         LIST_MEMBERS to ListMembersCommand(LIST_MEMBERS.abbreviation, LIST_MEMBERS.description),
     )
 
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     suspend fun initCommands()
     {
         logger.info { "Initializing commands..." }
-        commands.forEach { it.value.init(kordClient) }
+
+        kordClient.createGlobalApplicationCommands {
+
+            for ((_, command) in this@PubyCommandManager.commands)
+            {
+                command.register(this@createGlobalApplicationCommands, kordClient)
+                logger.info { "Added command '${command.commandName}' to bulk registration payload." }
+            }
+        }
+        logger.info { "Commands initialized successfully." }
     }
 
     fun registerListeners()
