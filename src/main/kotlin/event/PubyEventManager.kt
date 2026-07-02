@@ -28,7 +28,7 @@ class PubyEventManager
         pubyEvents.add(pubyEvent)
         pubyEvent.addMember(
             PubyEventMember(
-                pubyEventDTO.creator.discordId,
+                pubyEventDTO.creator.discordUsername,
                 pubyEventDTO.creator.snowflake
             )
         )

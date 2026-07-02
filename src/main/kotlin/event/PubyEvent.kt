@@ -19,23 +19,23 @@ class PubyEvent(
 {
     fun addMember(member: PubyEventMember): Boolean
     {
-        if (members.any { it.discordId == member.discordId })
+        if (members.any { it.discordUsername == member.discordUsername })
             return false
 
         members.add(member)
         return true
     }
 
-    fun formatMembersAsDiscordEmbed() = members.joinToString("\n") { "## `${it.discordId}`" }
+    fun formatMembersAsDiscordEmbed() = members.joinToString("\n") { "## `${it.discordUsername}`" }
 
-    fun isMemberOfEvent(discordId: String) = members.any { it.discordId == discordId } || creator.discordId == discordId
+    fun isMemberOfEvent(discordId: String) = members.any { it.discordUsername == discordId } || creator.discordUsername == discordId
 
     fun removeMember(discordId: String): Boolean
     {
         if (!isMemberOfEvent(discordId))
             return false
 
-        return members.remove(members.find { it.discordId == discordId })
+        return members.remove(members.find { it.discordUsername == discordId })
     }
 
     fun toFancyString(): String
@@ -45,7 +45,7 @@ class PubyEvent(
         val date = "Date: ${ if (date != null) "*$date*" else "*Not provided*" }\n"
         val time = "Time: ${ if (time != null) "*$time*" else "*Not provided*" }\n"
         val pubyReceipt = "Receipt: ${ if (pubyReceipt != null) "*Yes*" else "*No*" }\n"
-        val creator = "Creator: `${creator.discordId}`"
+        val creator = "Creator: `${creator.discordUsername}`"
 
         return """
             |## $name

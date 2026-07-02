@@ -3,7 +3,7 @@ package me.trup10ka.puby.data
 import dev.kord.common.entity.Snowflake
 
 data class PubyEventMember(
-    val discordId: String,
+    val discordUsername: String,
     val snowflake: Snowflake
 )
 {

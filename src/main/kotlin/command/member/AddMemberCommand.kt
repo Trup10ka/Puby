@@ -51,7 +51,7 @@ class AddMemberCommand(
         if (member == null)
             response.respondEmbeddedFail { title = "Member already in the event!" }
         else
-            response.respondEmbeddedSuccess(member) { title = "Member `${member.discordId}` added" }
+            response.respondEmbeddedSuccess(member) { title = "Member `${member.discordUsername}` added" }
     }
 
     private fun addMemberToEvent(event: PubyEvent, command: InteractionCommand): PubyEventMember?
