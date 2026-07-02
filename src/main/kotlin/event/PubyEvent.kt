@@ -3,7 +3,7 @@ package me.trup10ka.puby.event
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.data.PubyEventMember
-import me.trup10ka.puby.receipt.Receipt
+import me.trup10ka.puby.receipt.PubyReceipt
 
 class PubyEvent(
     val id: Int,
@@ -12,7 +12,7 @@ class PubyEvent(
     var place: String?,
     var date: LocalDate?,
     var time: LocalTime?,
-    var receipt: Receipt?,
+    var pubyReceipt: PubyReceipt?,
     private val creator: PubyEventMember,
     private val members: MutableList<PubyEventMember> = mutableListOf()
 )
@@ -44,7 +44,7 @@ class PubyEvent(
         val place = "Place: ${ if (place != null) "*$place*" else "*Not provided*" }\n"
         val date = "Date: ${ if (date != null) "*$date*" else "*Not provided*" }\n"
         val time = "Time: ${ if (time != null) "*$time*" else "*Not provided*" }\n"
-        val receipt = "Receipt: ${ if (receipt != null) "*Yes*" else "*No*" }\n"
+        val pubyReceipt = "Receipt: ${ if (pubyReceipt != null) "*Yes*" else "*No*" }\n"
         val creator = "Creator: `${creator.discordId}`"
 
         return """
@@ -53,7 +53,7 @@ class PubyEvent(
             | $place
             | $date
             | $time
-            | $receipt
+            | $pubyReceipt
             | $creator
         """.trimMargin()
     }

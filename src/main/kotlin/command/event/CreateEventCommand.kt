@@ -91,7 +91,7 @@ class CreateEventCommand(
         val place = interaction.command.strings["place"]
         val date = interaction.command.strings["date"]?.let { LocalDate.parse(it) }
         val time = interaction.command.strings["time"]?.let { LocalTime.parse(it) }
-        val receipt = interaction.command.booleans["receipt"] == true
+        val receipt = interaction.command.booleans["pubyReceipt"] == true
         val creator = PubyEventMember(interaction.user.tag, interaction.user.id)
 
         return PubyEventDTO(

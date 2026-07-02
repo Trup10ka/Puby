@@ -2,7 +2,7 @@ package me.trup10ka.puby.event
 
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.data.PubyEventMember
-import me.trup10ka.puby.receipt.Receipt
+import me.trup10ka.puby.receipt.PubyReceipt
 import me.trup10ka.puby.util.EventCreationStatusCode.FAIL_MAX_EVENTS_REACHED
 
 
@@ -21,7 +21,7 @@ class PubyEventManager
             place = pubyEventDTO.place,
             date = pubyEventDTO.date,
             time = pubyEventDTO.time,
-            receipt = if (pubyEventDTO.receipt) generateReceipt() else null,
+            pubyReceipt = if (pubyEventDTO.receipt) generateReceipt() else null,
             creator = pubyEventDTO.creator
         )
 
@@ -38,7 +38,7 @@ class PubyEventManager
 
     fun deleteEvent(id: Int) = pubyEvents.removeIf { it.id == id }
 
-    private fun generateReceipt(): Receipt?
+    private fun generateReceipt(): PubyReceipt?
     {
         TODO()
     }
