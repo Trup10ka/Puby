@@ -32,6 +32,8 @@ class AlterEventCommand(
             commandName,
             commandDescription
         ) {
+            dmPermission = false
+
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
             string(EVENT_ALTER_PARAM.argName, EVENT_ALTER_PARAM.description) {
                 required = true

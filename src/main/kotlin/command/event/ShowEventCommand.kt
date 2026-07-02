@@ -25,6 +25,8 @@ class ShowEventCommand(
             commandName,
             commandDescription
         ) {
+            dmPermission = true
+
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
         }
         logger.info { "Command '$commandName' initiated" }

@@ -29,6 +29,8 @@ class RemoveMemberCommand(
             commandName,
             commandDescription
         ) {
+            dmPermission = false
+
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
             user(EVENT_MEMBER_ID.argName, EVENT_MEMBER_ID.description) { required = true }
         }

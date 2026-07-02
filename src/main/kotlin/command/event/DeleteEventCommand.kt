@@ -25,6 +25,8 @@ class DeleteEventCommand(
             commandName,
             commandDescription
         ) {
+            dmPermission = false
+
             integer(EVENT_ID.argName, EVENT_ID.description) { required = true }
         }
         logger.info { "Command '$commandName' initiated" }

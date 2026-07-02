@@ -41,6 +41,8 @@ class CreateEventCommand(
             commandName,
             commandDescription
         ) {
+            dmPermission = false
+
             string(EVENT_NAME.argName, EVENT_NAME.description) { required = true }
             string(EVENT_DESCRIPTION.argName, EVENT_DESCRIPTION.description)
             string(EVENT_PLACE.argName, EVENT_PLACE.description)
