@@ -32,6 +32,7 @@ class PubyEventManager
                 pubyEventDTO.creator.snowflake
             )
         )
+        pubyEventDTO.members.forEach { pubyEvent.addMember(it) }
 
         return pubyEvent.id
     }

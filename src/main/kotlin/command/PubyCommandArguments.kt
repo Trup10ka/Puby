@@ -2,6 +2,7 @@ package me.trup10ka.puby.command
 
 enum class PubyCommandArguments(val argName: String, val description: String)
 {
+    /* ====  EVENT  ==== */
     EVENT_ID("id", "The ID of the event"),
     EVENT_NAME("name", "The name of the event"),
     EVENT_DESCRIPTION("description", "The description of the event"),
@@ -11,5 +12,10 @@ enum class PubyCommandArguments(val argName: String, val description: String)
     EVENT_RECEIPT("puby_receipt", "Whether the event has a receipt"),
     EVENT_MEMBER_ID("discord_id", "The ID of the member to add/remove"),
     EVENT_ALTER_PARAM("event_param", "The event parameter to change"),
-    EVENT_PARAM_NEW_VALUE("new_value", "The new value of the event parameter")
+    EVENT_PARAM_NEW_VALUE("new_value", "The new value of the event parameter"),
+    LIST_OF_PEOPLE_ATTENDING("list_of_people", "The list of people attending the event"),
+
+    /* ====  RECEIPT  ====  */
+    NUM_OF_PEOPLE("number_of_people", "The number of people which will be attending")
+
 }

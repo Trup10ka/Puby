@@ -10,6 +10,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.PubyCommand
+import me.trup10ka.puby.command.PubyCommandArguments
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.event.PubyEvent
@@ -22,6 +23,8 @@ import me.trup10ka.puby.command.PubyCommandArguments.EVENT_NAME
 import me.trup10ka.puby.command.PubyCommandArguments.EVENT_PLACE
 import me.trup10ka.puby.command.PubyCommandArguments.EVENT_RECEIPT
 import me.trup10ka.puby.command.PubyCommandArguments.EVENT_TIME
+import me.trup10ka.puby.command.PubyCommandArguments.LIST_OF_PEOPLE_ATTENDING
+import me.trup10ka.puby.util.readAllSnowflakes
 
 class CreateEventCommand(
     commandName: String,
@@ -50,6 +53,7 @@ class CreateEventCommand(
             string(EVENT_DATE.argName, EVENT_DATE.description)
             string(EVENT_TIME.argName, EVENT_TIME.description)
             boolean(EVENT_RECEIPT.argName, EVENT_RECEIPT.description)
+            string(LIST_OF_PEOPLE_ATTENDING.argName, LIST_OF_PEOPLE_ATTENDING.description)
         }
         logger.info { "Command '$commandName' initiated" }
     }
@@ -87,7 +91,7 @@ class CreateEventCommand(
         return false
     }
 
-    private fun assembleEventDTO(interaction: ChatInputCommandInteraction): PubyEventDTO
+    private suspend fun assembleEventDTO(interaction: ChatInputCommandInteraction): PubyEventDTO
     {
         val name = interaction.command.strings[EVENT_NAME.argName]!!
         val description = interaction.command.strings[EVENT_DESCRIPTION.argName]
@@ -97,6 +101,12 @@ class CreateEventCommand(
         val receipt = interaction.command.booleans[EVENT_RECEIPT.argName] == true
         val creator = PubyEventMember(interaction.user.tag, interaction.user.id)
 
+        var members = emptyList<PubyEventMember>()
+        if (interaction.command.strings[LIST_OF_PEOPLE_ATTENDING.argName] != null)
+            members = readAllSnowflakes(interaction.command.strings[LIST_OF_PEOPLE_ATTENDING.argName]!!).map {
+                PubyEventMember(kord.getUser(it)!!.username, it)
+            }
+
         return PubyEventDTO(
             name = name,
             description = description,
@@ -104,7 +114,8 @@ class CreateEventCommand(
             date = date,
             time = time,
             receipt = receipt,
-            creator = creator
+            creator = creator,
+            members = members
         )
     }
 }

@@ -66,18 +66,44 @@ class PubyCommandManager(
         }
     }
 
-    private suspend fun findCommandAndTrigger(rootName: String, response: DeferredResponseBehavior, interaction: ChatInputCommandInteraction)
+    private suspend fun findCommandAndTrigger(
+        rootName: String,
+        response: DeferredResponseBehavior,
+        interaction: ChatInputCommandInteraction
+    )
     {
         when (rootName)
         {
-            CREATE_EVENT.abbreviation -> commands[CREATE_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
-            DELETE_EVENT.abbreviation -> commands[DELETE_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
+            CREATE_EVENT.abbreviation -> commands[CREATE_EVENT]!!.handleCommand(
+                response,
+                interaction,
+                pubyEventManager
+            )
+
+            DELETE_EVENT.abbreviation -> commands[DELETE_EVENT]!!.handleCommand(
+                response,
+                interaction,
+                pubyEventManager
+            )
+
             ALTER_EVENT.abbreviation -> commands[ALTER_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
             SHOW_EVENT.abbreviation -> commands[SHOW_EVENT]!!.handleCommand(response, interaction, pubyEventManager)
             ADD_MEMBER.abbreviation -> commands[ADD_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
-            REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(response, interaction, pubyEventManager)
-            LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(response, interaction, pubyEventManager)
-            else -> response.respondEmbeddedFail { description = "This command is not yet / no longer supported by Puby" }
+            REMOVE_MEMBER.abbreviation -> commands[REMOVE_MEMBER]!!.handleCommand(
+                response,
+                interaction,
+                pubyEventManager
+            )
+
+            LIST_MEMBERS.abbreviation -> commands[LIST_MEMBERS]!!.handleCommand(
+                response,
+                interaction,
+                pubyEventManager
+            )
+
+            else -> response.respondEmbeddedFail {
+                description = "This command is not yet / no longer supported by Puby"
+            }
         }
     }
 }

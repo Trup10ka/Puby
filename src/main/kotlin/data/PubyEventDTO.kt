@@ -10,5 +10,6 @@ data class PubyEventDTO(
     val time: LocalTime?,
     val place: String?,
     val receipt: Boolean,
-    val creator: PubyEventMember
+    val creator: PubyEventMember,
+    val members: List<PubyEventMember>
 )
