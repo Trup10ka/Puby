@@ -2,7 +2,9 @@ package me.trup10ka.puby.util
 
 import dev.kord.common.Color
 import dev.kord.common.entity.Snowflake
+import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.interaction.response.respond
+import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.embed
 import me.trup10ka.puby.data.PubyEventMember
@@ -19,6 +21,16 @@ suspend fun DeferredResponseBehavior.respondEmbeddedSuccess(mention: PubyEventMe
 
         content = mention?.toDiscordMentionFormat() ?: ""
 
+        embed {
+            embedBuilder()
+            color = EMBED_COLOR_SUCCESS
+        }
+    }
+}
+
+suspend fun MessageChannel.sendSuccessEmbedMessage(embedBuilder: EmbedBuilder.() -> Unit)
+{
+    createMessage {
         embed {
             embedBuilder()
             color = EMBED_COLOR_SUCCESS

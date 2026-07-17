@@ -1,6 +1,8 @@
 package me.trup10ka.puby.command.event
 
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
+import dev.kord.core.entity.channel.MessageChannel
 import me.trup10ka.puby.util.DeferredResponseBehavior
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.rest.builder.interaction.GlobalMultiApplicationCommandBuilder
@@ -10,7 +12,6 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import me.trup10ka.puby.command.PubyCommand
-import me.trup10ka.puby.command.PubyCommandArguments
 import me.trup10ka.puby.data.PubyEventDTO
 import me.trup10ka.puby.data.PubyEventMember
 import me.trup10ka.puby.event.PubyEvent
@@ -25,6 +26,7 @@ import me.trup10ka.puby.command.PubyCommandArguments.EVENT_RECEIPT
 import me.trup10ka.puby.command.PubyCommandArguments.EVENT_TIME
 import me.trup10ka.puby.command.PubyCommandArguments.LIST_OF_PEOPLE_ATTENDING
 import me.trup10ka.puby.util.readAllSnowflakes
+import me.trup10ka.puby.util.sendSuccessEmbedMessage
 
 class CreateEventCommand(
     commandName: String,
@@ -61,12 +63,15 @@ class CreateEventCommand(
     override suspend fun handleCommand(responseBehavior: DeferredResponseBehavior, interaction: ChatInputCommandInteraction, pubyEventManager: PubyEventManager)
     {
         val eventId = pubyEventManager.createEvent(assembleEventDTO(interaction))
+        val channelId = interaction.channelId
 
         if (!hasEventBeenCreated(eventId, responseBehavior))
             return
 
         val event = pubyEventManager.pubyEvents.find { it.id == eventId }!!
+
         respondWithEventCreated(event, responseBehavior)
+        sendInfoAboutReceiptIfCreated(event, channelId)
     }
 
     private suspend fun respondWithEventCreated(event: PubyEvent, response: DeferredResponseBehavior)
@@ -75,6 +80,25 @@ class CreateEventCommand(
             title = "Event created"
             this.description = event.toFancyString()
             footer { text = "Event ID: ${event.id}" }
+        }
+    }
+
+    private suspend fun sendInfoAboutReceiptIfCreated(event: PubyEvent, channelId: Snowflake)
+    {
+        if (event.pubyReceipt != null)
+        {
+            val channel = kord.getChannelOf<MessageChannel>(channelId)
+
+            if (channel == null)
+            {
+                logger.error { "Failed to send info about receipt creation, channel with id $channelId not found" }
+                return
+            }
+
+            channel.sendSuccessEmbedMessage {
+                title = "Receipt created successfully with event"
+                footer { text = "Event ID: ${event.id} | Receipt ID: ${event.id}" }
+            }
         }
     }
 
